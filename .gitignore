@@ -32,3 +32,14 @@ data/health_chart.png
 # Captured scan history
 data/ble_scan_history.json
 ble_scan_history.json
+
+# Pip/setuptools build artifacts
+*.egg-info/
+dist/
+build/
+
+# Root-level generated outputs
+health_chart.png
+
+# Claude Code internal files
+.claude/

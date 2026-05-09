@@ -218,27 +218,27 @@ RX: 88 01 07 00 [ASCII string z numerem seryjnym, zero-terminated]
 ### Instalacja
 
 ```bash
-pip install bleak pycryptodome
+pip install -e ".[viz]"
 ```
 
 ### Pełna synchronizacja
 
 ```bash
-python mibro_client.py --mac 10:7B:93:CE:B5:1F --days 7 --csv health.csv --debug
+python -m mibro.client --mac 10:7B:93:CE:B5:1F --days 7 --csv data/health.csv --debug
 ```
 
 ### Eksport z przechwyconych ramek (bez BLE)
 
 ```bash
-python export_captured_health.py --json mibro_captured_frames.json --csv health.csv
-python plot_health.py   # generuje health_chart.png
+python tools/export_health.py --json data/mibro_captured_frames.json --csv data/health_export.csv
+python tools/plot_health.py   # generuje data/health_chart.png
 ```
 
 ### Użycie jako biblioteki
 
 ```python
 import asyncio
-from mibro_client import MibroClient
+from mibro.client import MibroClient
 
 async def main():
     client = MibroClient(mac="10:7B:93:CE:B5:1F")
@@ -260,16 +260,16 @@ asyncio.run(main())
 
 | Plik | Opis |
 |---|---|
-| `mibro_protocol.py` | Frame builder, parsery wszystkich typów danych, auth |
-| `mibro_client.py` | Klient BLE async (bleak), CLI |
-| `mibro_hci_parse.py` | Parser logów BTSnoop HCI (do analizy nowych logów) |
-| `export_captured_health.py` | Eksport danych z JSON bez połączenia BLE |
-| `plot_health.py` | Wizualizacja: hipnogram + HR (matplotlib) |
-| `frida_capture_auth.js` | Frida hooks do przechwycenia klucza auth z aplikacji |
-| `mibro_captured_frames.json` | 69 ramek z HCI logu — gotowe dane do parsowania |
-| `btsnoop_hci.log` | Surowy log HCI (9.56 MB) — źródło prawdy |
-| `health_export.csv` | Wyeksportowane dane zdrowotne |
-| `health_chart.png` | Hipnogram + wykres HR |
+| `mibro/protocol.py` | Frame builder, parsery wszystkich typów danych, auth |
+| `mibro/client.py` | Klient BLE async (bleak), CLI |
+| `mibro/hci_parse.py` | Parser logów BTSnoop HCI (do analizy nowych logów) |
+| `tools/export_health.py` | Eksport danych z JSON bez połączenia BLE |
+| `tools/plot_health.py` | Wizualizacja: hipnogram + HR (matplotlib) |
+| `re/frida_capture_auth.js` | Frida hooks do przechwycenia klucza auth z aplikacji |
+| `data/mibro_captured_frames.json` | 69 ramek z HCI logu — gotowe dane do parsowania |
+| `artifacts/btsnoop_hci.log` | Surowy log HCI (9.56 MB) — źródło prawdy |
+| `data/health_export.csv` | Wyeksportowane dane zdrowotne |
+| `data/health_chart.png` | Hipnogram + wykres HR |
 
 ---
 

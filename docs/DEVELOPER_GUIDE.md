@@ -3,7 +3,7 @@
 Praktyczny przewodnik dla programistów, którzy chcą budować własne aplikacje odczytujące dane z zegarka **Mibro Watch C4** przez BLE.
 
 > **Wymagania wstępne**: Python 3.10+, Windows 10/11 z Bluetooth LE, zegarek Mibro Watch C4.
-> Cały gotowy kod jest w plikach `mibro_protocol.py`, `mibro_client.py` i narzędziach pomocniczych.
+> Cały gotowy kod jest w pakiecie `mibro/` (importowalnym przez `pip install -e .`) i narzędziach w `tools/`.
 
 ---
 
@@ -29,36 +29,35 @@ Praktyczny przewodnik dla programistów, którzy chcą budować własne aplikacj
 ### Scenariusz A — masz zegarek pod ręką (live BLE)
 
 ```bash
-# Zainstaluj zależności
-pip install bleak pycryptodome
+# Zainstaluj pakiet (jednorazowo)
+pip install -e ".[viz]"
 
 # Odłącz zegarek od telefonu, a potem:
-python mibro_client.py --mac 10:7B:93:CE:B5:1F --days 7 --csv health.csv --debug
+python -m mibro.client --mac 10:7B:93:CE:B5:1F --days 7 --csv data/health.csv --debug
 
 # Wygeneruj wykres
-pip install matplotlib
-python plot_health.py
+python tools/plot_health.py
 ```
 
 ### Scenariusz B — masz już plik JSON z ramkami (offline)
 
 ```bash
-python export_captured_health.py --json mibro_captured_frames.json --csv health.csv
-python plot_health.py
+python tools/export_health.py --json data/mibro_captured_frames.json --csv data/health_export.csv
+python tools/plot_health.py
 ```
 
 ### Scenariusz C — nowy HCI log z telefonu
 
 ```bash
 # Skopiuj log z telefonu
-adb pull /data/misc/bluetooth/logs/btsnoop_hci.log .
+adb pull /data/misc/bluetooth/logs/btsnoop_hci.log artifacts/
 
 # Sparsuj i wyciągnij ramki protokołu
-python mibro_hci_parse.py btsnoop_hci.log
+python -m mibro.hci_parse artifacts/btsnoop_hci.log
 
 # Dalej jak w scenariuszu B
-python export_captured_health.py
-python plot_health.py
+python tools/export_health.py
+python tools/plot_health.py
 ```
 
 ---
@@ -66,30 +65,30 @@ python plot_health.py
 ## 2. Architektura biblioteki
 
 ```
-mibro_protocol.py          ← rdzeń: budowanie ramek, parsowanie danych
-mibro_client.py            ← klient BLE (bleak), CLI, eksport CSV
-mibro_hci_parse.py         ← parser logów BTSnoop HCI (Android)
-export_captured_health.py  ← eksport danych z pliku JSON (bez BLE)
-plot_health.py             ← wizualizacja matplotlib
-frida_capture_auth.js      ← Frida hooks (przechwytywanie klucza auth)
+mibro/protocol.py        ← rdzeń: budowanie ramek, parsowanie danych
+mibro/client.py          ← klient BLE (bleak), CLI, eksport CSV
+mibro/hci_parse.py       ← parser logów BTSnoop HCI (Android)
+tools/export_health.py   ← eksport danych z pliku JSON (bez BLE)
+tools/plot_health.py     ← wizualizacja matplotlib
+re/frida_capture_auth.js ← Frida hooks (przechwytywanie klucza auth)
 ```
 
 ### Przepływ danych
 
 ```
-Android HCI log ──► mibro_hci_parse.py ──► mibro_captured_frames.json
+Android HCI log ──► mibro/hci_parse.py ──► data/mibro_captured_frames.json
                                                         │
 Live BLE ────────────────────────────────────────────── ┘
      │                                                  │
-     └──► mibro_client.py ──────────────────────────── ┘
+     └──► mibro/client.py ──────────────────────────── ┘
                │                                        │
-               └──────────────────────────────────────► export_captured_health.py
+               └──────────────────────────────────────► tools/export_health.py
                                                                     │
                                                                     ▼
-                                                             health_export.csv
+                                                      data/health_export.csv
                                                                     │
                                                                     ▼
-                                                             plot_health.py ──► health_chart.png
+                                                  tools/plot_health.py ──► data/health_chart.png
 ```
 
 ---
@@ -112,12 +111,15 @@ pip install bleak pycryptodome matplotlib
 
 ```
 projekt/
-├── mibro_protocol.py          ← importuj jako bibliotekę
-├── mibro_client.py            ← gotowy klient lub baza do rozbudowy
-├── mibro_hci_parse.py         ← narzędzie do analizy logów
-├── export_captured_health.py  ← narzędzie offline
-├── plot_health.py             ← wizualizacja
-├── frida_capture_auth.js      ← narzędzie RE (opcjonalne)
+├── mibro/                     ← pakiet Python (pip install -e .)
+│   ├── protocol.py            ← rdzeń protokołu
+│   ├── client.py              ← klient BLE
+│   └── hci_parse.py           ← parser logów HCI
+├── tools/
+│   ├── export_health.py       ← eksport offline z JSON
+│   └── plot_health.py         ← wizualizacja
+├── re/
+│   └── frida_capture_auth.js  ← narzędzie RE (opcjonalne)
 └── twoj_skrypt.py             ← tutaj budujesz swoją aplikację
 ```
 
@@ -141,7 +143,7 @@ pip install bleak pycryptodome matplotlib
 
 ```python
 import asyncio
-from mibro_client import MibroClient
+from mibro.client import MibroClient
 
 async def main():
     client = MibroClient(mac="10:7B:93:CE:B5:1F")
@@ -182,7 +184,7 @@ async def safe_connect():
 
 ```python
 # MAC zegarka można odczytać z logu HCI lub przez skan BLE
-from mibro_client import MibroClient, WATCH_MAC
+from mibro.client import MibroClient, WATCH_MAC
 
 client = MibroClient(
     mac=WATCH_MAC  # domyślnie "10:7B:93:CE:B5:1F"
@@ -251,7 +253,7 @@ for r in client.hr_agg_records:
 
 ```python
 import asyncio
-from mibro_client import MibroClient
+from mibro.client import MibroClient
 
 async def full_sync(mac: str, days: int = 7, csv_path: str = "health.csv"):
     client = MibroClient(mac=mac)
@@ -281,12 +283,12 @@ asyncio.run(full_sync("10:7B:93:CE:B5:1F", days=7, csv_path="health.csv"))
 
 ## 6. Praca z danymi — typy i struktury
 
-Wszystkie typy danych zdefiniowane są w `mibro_protocol.py` jako dataclassy:
+Wszystkie typy danych zdefiniowane są w pakiecie `mibro` jako dataclassy:
 
 ### HRRecord — pomiar tętna
 
 ```python
-from mibro_protocol import HRRecord
+from mibro import HRRecord
 import datetime
 
 r = HRRecord(timestamp=1778265600, bpm=72)
@@ -298,7 +300,7 @@ print(r.timestamp) # int, Unix timestamp
 ### SpO2Record — saturacja krwi
 
 ```python
-from mibro_protocol import SpO2Record
+from mibro import SpO2Record
 
 r = SpO2Record(timestamp=1778265600, spo2=98)
 print(r.dt)    # datetime.datetime
@@ -308,7 +310,7 @@ print(r.spo2)  # int, procent saturacji (0–100)
 ### SleepStageRecord — faza snu
 
 ```python
-from mibro_protocol import SleepStageRecord
+from mibro import SleepStageRecord
 
 r = SleepStageRecord(timestamp=1778220000, stage=1, sub_stage=0, duration_min=45)
 print(r.dt)            # datetime.datetime — początek fazy
@@ -320,7 +322,7 @@ print(r.duration_min)  # int — czas trwania fazy w minutach
 ### StepsRecord — kroki (dzienny)
 
 ```python
-from mibro_protocol import StepsRecord
+from mibro import StepsRecord
 
 r = StepsRecord(steps=8432, calories=320, distance_m=5800)
 print(r.steps)       # int
@@ -331,7 +333,7 @@ print(r.distance_m)  # int, metry
 ### HRAggregate — agregat HR
 
 ```python
-from mibro_protocol import HRAggregate
+from mibro import HRAggregate
 
 r = HRAggregate(timestamp=1778265600, value=68)
 print(r.dt)     # datetime.datetime
@@ -346,10 +348,10 @@ print(r.value)  # int (interpretacja: min/max/avg — TBD)
 
 ```python
 # Przez MibroClient (po live sync)
-client.export_csv("health.csv")
+client.export_csv("data/health.csv")
 
 # Lub przez skrypt offline
-# python export_captured_health.py --json mibro_captured_frames.json --csv health.csv
+# python tools/export_health.py --json data/mibro_captured_frames.json --csv data/health_export.csv
 ```
 
 Format CSV:
@@ -385,17 +387,17 @@ print(sleep_df["dur_min"].sum(), "min snu")
 ### Wizualizacja (matplotlib)
 
 ```bash
-python plot_health.py
+python tools/plot_health.py
 ```
 
-Generuje `health_chart.png` — hipnogram + wykres HR.
+Generuje `data/health_chart.png` — hipnogram + wykres HR.
 
 Żeby użyć funkcji wizualizacji we własnym skrypcie:
 
 ```python
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-from plot_health import load_csv, plot_hypnogram, plot_hr
+from tools.plot_health import load_csv, plot_hypnogram, plot_hr
 
 sleep, hr, hr_agg, steps = load_csv("health.csv")
 
@@ -415,23 +417,23 @@ Przydatne gdy zegarek jest zajęty (podłączony do telefonu) lub niedostępny.
 ### Z pliku JSON ramek
 
 ```bash
-python export_captured_health.py \
-    --json mibro_captured_frames.json \
-    --csv  health_export.csv
+python tools/export_health.py \
+    --json data/mibro_captured_frames.json \
+    --csv  data/health_export.csv
 ```
 
 Flagi:
-- `--json PATH` — wejście (domyślnie: `mibro_captured_frames.json`)
-- `--csv PATH`  — wyjście (domyślnie: `health_export.csv`)
+- `--json PATH` — wejście (domyślnie: `data/mibro_captured_frames.json`)
+- `--csv PATH`  — wyjście (domyślnie: `data/health_export.csv`)
 - `--no-dedup`  — nie usuwaj duplikatów (domyślnie: usuwa)
 
 ### Programowe parsowanie ramek
 
 ```python
 import json
-import mibro_protocol as proto
+from mibro import protocol as proto
 
-with open("mibro_captured_frames.json") as f:
+with open("data/mibro_captured_frames.json") as f:
     frames = json.load(f)
 
 for entry in frames:
@@ -450,10 +452,10 @@ for entry in frames:
 
 ### Dodanie nowej komendy
 
-Jeśli odkryjesz nową komendę (np. `0x06` — profil użytkownika), dodaj do `mibro_protocol.py`:
+Jeśli odkryjesz nową komendę (np. `0x06` — profil użytkownika), dodaj do `mibro/protocol.py`:
 
 ```python
-# W mibro_protocol.py
+# W mibro/protocol.py
 
 def build_set_user_profile(age: int, height_cm: int, weight_kg: int, step_goal: int) -> bytes:
     """cmd=0x06: ustaw profil użytkownika."""
@@ -471,7 +473,7 @@ def parse_user_profile_response(payload: bytes) -> dict | None:
     }
 ```
 
-Następnie w `mibro_client.py`:
+Następnie w `mibro/client.py`:
 
 ```python
 async def set_user_profile(self, age: int, height_cm: int, weight_kg: int) -> None:
@@ -515,7 +517,7 @@ if response:
 Jeśli zegarek zacznie wysyłać nieznany dtype w odpowiedzi na cmd=0x25, rozszerz `parse_data_frame`:
 
 ```python
-# Na końcu parse_data_frame w mibro_protocol.py
+# Na końcu parse_data_frame w mibro/protocol.py
 
 DATA_TYPE_STRESS = 0x0D  # przykładowo
 
@@ -615,9 +617,9 @@ adb bugreport bugreport.zip
 ### Parsowanie logu
 
 ```bash
-python mibro_hci_parse.py btsnoop_hci.log --verbose
+python -m mibro.hci_parse artifacts/btsnoop_hci.log --verbose
 # → wyświetla wszystkie ramki
-# → zapisuje mibro_captured_frames.json automatycznie
+# → zapisuje data/mibro_captured_frames.json automatycznie
 ```
 
 Flagi:
@@ -655,7 +657,7 @@ lub ręcznie: Ustawienia → Aplikacje → Mibro Fit → Wymuś zatrzymanie.
 
 1. **Zakres dat zbyt stary** — zegarek trzyma dane tylko z ostatnich ~7 dni:
    ```bash
-   python mibro_client.py --days 3  # zmniejsz zakres
+   python -m mibro.client --days 3  # zmniejsz zakres
    ```
 
 2. **Brak danych zdrowotnych** — zegarek musi mieć włączone monitorowanie ciągłe w aplikacji Mibro Fit.
@@ -721,7 +723,7 @@ if result is None:
 ## Szybka ściągawka — komendy protokołu
 
 ```python
-import mibro_protocol as proto
+from mibro import protocol as proto
 
 # Budowanie ramek:
 proto.build_handshake_stage1()                           # CMD 0x01 etap 1
