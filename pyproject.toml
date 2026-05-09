@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mibro-watch"
+version = "0.1.0"
+description = "BLE library for reading health data from Mibro Watch C4"
+requires-python = ">=3.10"
+dependencies = [
+    "bleak>=0.21",
+    "pycryptodome>=3.18",
+]
+
+[project.optional-dependencies]
+viz = ["matplotlib>=3.7"]
+
+[project.scripts]
+mibro-sync   = "mibro.client:main"
+mibro-parse  = "mibro.hci_parse:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mibro*"]

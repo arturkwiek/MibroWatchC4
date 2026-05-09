@@ -28,7 +28,7 @@ from bleak import BleakScanner, BleakClient
 from bleak.backends.device import BLEDevice
 from bleak.backends.scanner import AdvertisementData
 
-from bluetooth_sig_uuids import (
+from mibro.bluetooth_uuids import (
     lookup_characteristic,
     lookup_descriptor,
     lookup_service,

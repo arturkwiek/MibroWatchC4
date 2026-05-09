@@ -1,0 +1,69 @@
+{"ts": "2026-05-08T23:19:00.035", "tag": "START", "msg": "Mibro Watch C4 RE probe — cel: 10:7B:93:CE:B5:1F"}
+{"ts": "2026-05-08T23:19:00.037", "tag": "INFO", "msg": "Log file: C:\\Users\\Dell\\Desktop\\Workplace\\Repositories\\NCBiR\\BLE_services\\mibro_re_log.jsonl"}
+{"ts": "2026-05-08T23:19:06.270", "tag": "CONN", "msg": "Połączono z 10:7B:93:CE:B5:1F"}
+{"ts": "2026-05-08T23:19:06.274", "tag": "PHASE", "msg": "0 — Subskrybuj + czekaj na spontaniczne notifikacje (5s)"}
+{"ts": "2026-05-08T23:19:06.311", "tag": "SUB_OK", "msg": "Subskrypcja 2CB0 aktywna"}
+{"ts": "2026-05-08T23:19:06.343", "tag": "SUB_OK", "msg": "Subskrypcja 0200 aktywna"}
+{"ts": "2026-05-08T23:19:06.343", "tag": "WAIT", "msg": "Czekam 5.0s — spontaniczne notifikacje po połączeniu"}
+{"ts": "2026-05-08T23:19:11.349", "tag": "PHASE", "msg": "1 — XTSR (EA EA) z wariantami CRC8"}
+{"ts": "2026-05-08T23:19:11.349", "tag": "PROBE", "msg": "XTSR handshake (type=0x01, cmd=0x01, payload=0B)"}
+{"ts": "2026-05-08T23:19:11.506", "tag": "TX_OK", "msg": "xtsr:handshake:crc_xor_all (response=True)", "hex": "EA EA 01 01 00 00 00", "dec": [234, 234, 1, 1, 0, 0, 0], "bytes": 7}
+{"ts": "2026-05-08T23:19:12.584", "tag": "TX_OK", "msg": "xtsr:handshake:crc_sum_all (response=True)", "hex": "EA EA 01 01 00 00 D6", "dec": [234, 234, 1, 1, 0, 0, 214], "bytes": 7}
+{"ts": "2026-05-08T23:19:13.656", "tag": "TX_OK", "msg": "xtsr:handshake:crc_neg_all (response=True)", "hex": "EA EA 01 01 00 00 29", "dec": [234, 234, 1, 1, 0, 0, 41], "bytes": 7}
+{"ts": "2026-05-08T23:19:14.746", "tag": "TX_OK", "msg": "xtsr:handshake:crc_xor_body (response=True)", "hex": "EA EA 01 01 00 00 00", "dec": [234, 234, 1, 1, 0, 0, 0], "bytes": 7}
+{"ts": "2026-05-08T23:19:15.884", "tag": "TX_OK", "msg": "xtsr:handshake:crc_sum_body (response=True)", "hex": "EA EA 01 01 00 00 02", "dec": [234, 234, 1, 1, 0, 0, 2], "bytes": 7}
+{"ts": "2026-05-08T23:19:16.964", "tag": "TX_OK", "msg": "xtsr:handshake:crc_twos (response=True)", "hex": "EA EA 01 01 00 00 2A", "dec": [234, 234, 1, 1, 0, 0, 42], "bytes": 7}
+{"ts": "2026-05-08T23:19:18.044", "tag": "TX_OK", "msg": "xtsr:handshake:no_crc (response=True)", "hex": "EA EA 01 01 00 00", "dec": [234, 234, 1, 1, 0, 0], "bytes": 6}
+{"ts": "2026-05-08T23:19:18.585", "tag": "DISCO", "msg": "Rozłączono (nieoczekiwanie)"}
+{"ts": "2026-05-08T23:19:19.259", "tag": "STATUS", "msg": "Po fazie 1: 0 RX, połączony=False"}
+{"ts": "2026-05-08T23:19:19.261", "tag": "STATUS", "msg": "Po fazie 2: 0 RX"}
+{"ts": "2026-05-08T23:19:19.261", "tag": "STATUS", "msg": "Po fazie 3: 0 RX"}
+{"ts": "2026-05-08T23:19:19.261", "tag": "STATUS", "msg": "Po fazie 4: 0 RX"}
+{"ts": "2026-05-08T23:19:19.267", "tag": "STATUS", "msg": "Po fazie 5: 0 RX"}
+{"ts": "2026-05-08T23:21:28.346", "tag": "START", "msg": "Mibro Watch C4 RE probe — cel: 10:7B:93:CE:B5:1F"}
+{"ts": "2026-05-08T23:21:28.346", "tag": "INFO", "msg": "Log file: C:\\Users\\Dell\\Desktop\\Workplace\\Repositories\\NCBiR\\BLE_services\\mibro_re_log.jsonl"}
+{"ts": "2026-05-08T23:23:03.220", "tag": "START", "msg": "Mibro Watch C4 RE probe — cel: 10:7B:93:CE:B5:1F"}
+{"ts": "2026-05-08T23:23:03.229", "tag": "INFO", "msg": "Log file: C:\\Users\\Dell\\Desktop\\Workplace\\Repositories\\NCBiR\\BLE_services\\mibro_re_log.jsonl"}
+{"ts": "2026-05-08T23:23:07.896", "tag": "CONN", "msg": "Połączono z 10:7B:93:CE:B5:1F"}
+{"ts": "2026-05-08T23:23:07.896", "tag": "PHASE", "msg": "0 — Subskrybuj + czekaj na spontaniczne notifikacje (5s)"}
+{"ts": "2026-05-08T23:23:07.920", "tag": "SUB_OK", "msg": "Subskrypcja 2CB0 aktywna"}
+{"ts": "2026-05-08T23:23:07.953", "tag": "SUB_OK", "msg": "Subskrypcja 0200 aktywna"}
+{"ts": "2026-05-08T23:23:07.953", "tag": "WAIT", "msg": "Czekam 0.5s — spontaniczne notifikacje po połączeniu"}
+{"ts": "2026-05-08T23:23:08.454", "tag": "PHASE", "msg": "1 — XTSR (EA EA) z wariantami CRC8"}
+{"ts": "2026-05-08T23:23:08.456", "tag": "PROBE", "msg": "XTSR handshake (type=0x01, cmd=0x01, payload=0B)"}
+{"ts": "2026-05-08T23:23:08.496", "tag": "TX_OK", "msg": "xtsr:handshake:crc_xor_all (response=True)", "hex": "EA EA 01 01 00 00 00", "dec": [234, 234, 1, 1, 0, 0, 0], "bytes": 7}
+{"ts": "2026-05-08T23:23:08.852", "tag": "TX_OK", "msg": "xtsr:handshake:crc_sum_all (response=True)", "hex": "EA EA 01 01 00 00 D6", "dec": [234, 234, 1, 1, 0, 0, 214], "bytes": 7}
+{"ts": "2026-05-08T23:23:09.343", "tag": "TX_OK", "msg": "xtsr:handshake:no_crc (response=True)", "hex": "EA EA 01 01 00 00", "dec": [234, 234, 1, 1, 0, 0], "bytes": 6}
+{"ts": "2026-05-08T23:23:09.877", "tag": "PROBE", "msg": "XTSR set_time (type=0x01, cmd=0x02, payload=4B)"}
+{"ts": "2026-05-08T23:23:09.950", "tag": "TX_OK", "msg": "xtsr:set_time:crc_xor_all (response=True)", "hex": "EA EA 01 02 00 04 3C 54 FE 69 F8", "dec": [234, 234, 1, 2, 0, 4, 60, 84, 254, 105, 248], "bytes": 11}
+{"ts": "2026-05-08T23:23:10.490", "tag": "TX_OK", "msg": "xtsr:set_time:crc_sum_all (response=True)", "hex": "EA EA 01 02 00 04 3C 54 FE 69 D2", "dec": [234, 234, 1, 2, 0, 4, 60, 84, 254, 105, 210], "bytes": 11}
+{"ts": "2026-05-08T23:23:11.092", "tag": "TX_OK", "msg": "xtsr:set_time:no_crc (response=True)", "hex": "EA EA 01 02 00 04 3C 54 FE 69", "dec": [234, 234, 1, 2, 0, 4, 60, 84, 254, 105], "bytes": 10}
+{"ts": "2026-05-08T23:23:11.679", "tag": "PROBE", "msg": "XTSR get_time (type=0x01, cmd=0x02, payload=0B)"}
+{"ts": "2026-05-08T23:23:11.746", "tag": "TX_OK", "msg": "xtsr:get_time:crc_xor_all (response=True)", "hex": "EA EA 01 02 00 00 03", "dec": [234, 234, 1, 2, 0, 0, 3], "bytes": 7}
+{"ts": "2026-05-08T23:23:12.348", "tag": "TX_OK", "msg": "xtsr:get_time:crc_sum_all (response=True)", "hex": "EA EA 01 02 00 00 D7", "dec": [234, 234, 1, 2, 0, 0, 215], "bytes": 7}
+{"ts": "2026-05-08T23:23:12.887", "tag": "TX_OK", "msg": "xtsr:get_time:no_crc (response=True)", "hex": "EA EA 01 02 00 00", "dec": [234, 234, 1, 2, 0, 0], "bytes": 6}
+{"ts": "2026-05-08T23:23:13.411", "tag": "PROBE", "msg": "XTSR device_info (type=0x01, cmd=0x11, payload=0B)"}
+{"ts": "2026-05-08T23:23:13.491", "tag": "TX_OK", "msg": "xtsr:device_info:crc_xor_all (response=True)", "hex": "EA EA 01 11 00 00 10", "dec": [234, 234, 1, 17, 0, 0, 16], "bytes": 7}
+{"ts": "2026-05-08T23:23:14.029", "tag": "TX_OK", "msg": "xtsr:device_info:crc_sum_all (response=True)", "hex": "EA EA 01 11 00 00 E6", "dec": [234, 234, 1, 17, 0, 0, 230], "bytes": 7}
+{"ts": "2026-05-08T23:23:14.572", "tag": "TX_OK", "msg": "xtsr:device_info:no_crc (response=True)", "hex": "EA EA 01 11 00 00", "dec": [234, 234, 1, 17, 0, 0], "bytes": 6}
+{"ts": "2026-05-08T23:23:15.095", "tag": "PROBE", "msg": "XTSR battery (type=0x01, cmd=0x20, payload=0B)"}
+{"ts": "2026-05-08T23:23:15.170", "tag": "TX_OK", "msg": "xtsr:battery:crc_xor_all (response=True)", "hex": "EA EA 01 20 00 00 21", "dec": [234, 234, 1, 32, 0, 0, 33], "bytes": 7}
+{"ts": "2026-05-08T23:23:15.712", "tag": "TX_OK", "msg": "xtsr:battery:crc_sum_all (response=True)", "hex": "EA EA 01 20 00 00 F5", "dec": [234, 234, 1, 32, 0, 0, 245], "bytes": 7}
+{"ts": "2026-05-08T23:23:16.252", "tag": "TX_OK", "msg": "xtsr:battery:no_crc (response=True)", "hex": "EA EA 01 20 00 00", "dec": [234, 234, 1, 32, 0, 0], "bytes": 6}
+{"ts": "2026-05-08T23:23:16.771", "tag": "PROBE", "msg": "XTSR step_today (type=0x01, cmd=0x51, payload=0B)"}
+{"ts": "2026-05-08T23:23:16.847", "tag": "TX_OK", "msg": "xtsr:step_today:crc_xor_all (response=True)", "hex": "EA EA 01 51 00 00 50", "dec": [234, 234, 1, 81, 0, 0, 80], "bytes": 7}
+{"ts": "2026-05-08T23:23:17.391", "tag": "TX_OK", "msg": "xtsr:step_today:crc_sum_all (response=True)", "hex": "EA EA 01 51 00 00 26", "dec": [234, 234, 1, 81, 0, 0, 38], "bytes": 7}
+{"ts": "2026-05-08T23:23:17.928", "tag": "TX_OK", "msg": "xtsr:step_today:no_crc (response=True)", "hex": "EA EA 01 51 00 00", "dec": [234, 234, 1, 81, 0, 0], "bytes": 6}
+{"ts": "2026-05-08T23:23:18.461", "tag": "PROBE", "msg": "XTSR hr_history (type=0x01, cmd=0x52, payload=0B)"}
+{"ts": "2026-05-08T23:23:18.588", "tag": "TX_OK", "msg": "xtsr:hr_history:crc_xor_all (response=True)", "hex": "EA EA 01 52 00 00 53", "dec": [234, 234, 1, 82, 0, 0, 83], "bytes": 7}
+{"ts": "2026-05-08T23:23:19.122", "tag": "TX_OK", "msg": "xtsr:hr_history:crc_sum_all (response=True)", "hex": "EA EA 01 52 00 00 27", "dec": [234, 234, 1, 82, 0, 0, 39], "bytes": 7}
+{"ts": "2026-05-08T23:23:19.668", "tag": "TX_OK", "msg": "xtsr:hr_history:no_crc (response=True)", "hex": "EA EA 01 52 00 00", "dec": [234, 234, 1, 82, 0, 0], "bytes": 6}
+{"ts": "2026-05-08T23:23:20.190", "tag": "PROBE", "msg": "XTSR sleep_history (type=0x01, cmd=0x53, payload=0B)"}
+{"ts": "2026-05-08T23:23:20.263", "tag": "TX_OK", "msg": "xtsr:sleep_history:crc_xor_all (response=True)", "hex": "EA EA 01 53 00 00 52", "dec": [234, 234, 1, 83, 0, 0, 82], "bytes": 7}
+{"ts": "2026-05-08T23:23:20.750", "tag": "DISCO", "msg": "Rozłączono (nieoczekiwanie)"}
+{"ts": "2026-05-08T23:23:20.782", "tag": "TX_ERR", "msg": "xtsr:sleep_history:crc_sum_all: [WinError -2147023673] Operacja została anulowana przez użytkownika. | noresp: Not connected", "hex": "EA EA 01 53 00 00 28", "dec": [234, 234, 1, 83, 0, 0, 40], "bytes": 7}
+{"ts": "2026-05-08T23:23:20.890", "tag": "STATUS", "msg": "Po fazie 1: 0 RX, połączony=False"}
+{"ts": "2026-05-08T23:23:20.890", "tag": "STATUS", "msg": "Po fazie 2: 0 RX"}
+{"ts": "2026-05-08T23:23:20.890", "tag": "STATUS", "msg": "Po fazie 3: 0 RX"}
+{"ts": "2026-05-08T23:23:20.890", "tag": "STATUS", "msg": "Po fazie 4: 0 RX"}
+{"ts": "2026-05-08T23:23:20.890", "tag": "STATUS", "msg": "Po fazie 5: 0 RX"}

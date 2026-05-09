@@ -22,5 +22,13 @@ env/
 .DS_Store
 Thumbs.db
 
-# Local runtime data
+# Binary artifacts — APKs, HCI logs, bugreports, native libs (large files)
+artifacts/
+
+# Generated outputs
+data/health_export.csv
+data/health_chart.png
+
+# Captured scan history
+data/ble_scan_history.json
 ble_scan_history.json

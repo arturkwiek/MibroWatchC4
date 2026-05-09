@@ -15,7 +15,7 @@ from bleak import BleakScanner, BleakClient
 from bleak.backends.device import BLEDevice
 from bleak.backends.scanner import AdvertisementData
 
-from bluetooth_sig_uuids import lookup_service, lookup_characteristic, lookup_descriptor
+from mibro.bluetooth_uuids import lookup_service, lookup_characteristic, lookup_descriptor
 
 # ── Terminal colour helpers ───────────────────────────────────────────────────
 
