@@ -33,6 +33,10 @@ data/health_chart.png
 data/ble_scan_history.json
 ble_scan_history.json
 
+# Captured BLE frames — may contain sensitive device/user data
+data/mibro_captured_frames.json
+mibro_captured_frames.json
+
 # Pip/setuptools build artifacts
 *.egg-info/
 dist/
